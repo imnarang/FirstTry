@@ -1,5 +1,5 @@
 from pathlib import Path
-
+#
 
 def list_directories(directory: Path) -> list[Path]:
     return sorted(path for path in directory.rglob("*") if path.is_dir())
