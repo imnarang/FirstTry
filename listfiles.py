@@ -1,11 +1,25 @@
 from pathlib import Path
 
-folder_path = Path(r"D:\YourFolder")
 
-files = [
-    file_path.name
-    for file_path in folder_path.iterdir()
-    if file_path.is_file()
-]
+def list_files(directory: Path) -> list[Path]:
+    return sorted(path for path in directory.rglob("*") if path.is_file())
 
-print(files)
+
+def main() -> None:
+    directory = Path(input("Enter a directory path: ").strip()).expanduser()
+
+    if not directory.is_dir():
+        print(f"Directory not found: {directory}")
+        return
+
+    files = list_files(directory)
+    if not files:
+        print("No files found.")
+        return
+
+    for file_path in files:
+        print(file_path.relative_to(directory))
+
+
+if __name__ == "__main__":
+    main()
